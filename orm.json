@@ -1,0 +1,199 @@
+{
+  "url": "jdbc:mysql://localhost:3306/grade_manage?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai",
+  "username": "root",
+  "password": "Weichuju07",
+  "tables": [
+    {
+      "classname": "Role",
+      "tablename": "role",
+      "columns": [
+        {
+          "fieldname": "roleId",
+          "colname": "role_id",
+          "coltype": "INTEGER",
+          "fieldtype": "Integer"
+        },
+        {
+          "fieldname": "roleName",
+          "colname": "role_name",
+          "coltype": "VARCHAR",
+          "fieldtype": "String"
+        },
+        {
+          "fieldname": "roleDesc",
+          "colname": "role_desc",
+          "coltype": "VARCHAR",
+          "fieldtype": "String"
+        }
+      ]
+    },
+    {
+      "classname": "Permission",
+      "tablename": "permission",
+      "columns": [
+        {
+          "fieldname": "permissionId",
+          "colname": "permission_id",
+          "coltype": "INTEGER",
+          "fieldtype": "Integer"
+        },
+        {
+          "fieldname": "permissionName",
+          "colname": "permission_name",
+          "coltype": "VARCHAR",
+          "fieldtype": "String"
+        },
+        {
+          "fieldname": "permissionCode",
+          "colname": "permission_code",
+          "coltype": "VARCHAR",
+          "fieldtype": "String"
+        },
+        {
+          "fieldname": "permissionDesc",
+          "colname": "permission_desc",
+          "coltype": "VARCHAR",
+          "fieldtype": "String"
+        }
+      ]
+    },
+    {
+      "classname": "RolePermission",
+      "tablename": "role_permission",
+      "columns": [
+        {
+          "fieldname": "rpId",
+          "colname": "rp_id",
+          "coltype": "INTEGER",
+          "fieldtype": "Integer"
+        },
+        {
+          "fieldname": "roleId",
+          "colname": "role_id",
+          "coltype": "INTEGER",
+          "fieldtype": "Integer"
+        },
+        {
+          "fieldname": "permissionId",
+          "colname": "permission_id",
+          "coltype": "INTEGER",
+          "fieldtype": "Integer"
+        }
+      ]
+    },
+    {
+      "classname": "User",
+      "tablename": "user",
+      "columns": [
+        {
+          "fieldname": "userId",
+          "colname": "user_id",
+          "coltype": "VARCHAR",
+          "fieldtype": "String"
+        },
+        {
+          "fieldname": "realName",
+          "colname": "real_name",
+          "coltype": "VARCHAR",
+          "fieldtype": "String"
+        },
+        {
+          "fieldname": "password",
+          "colname": "password",
+          "coltype": "VARCHAR",
+          "fieldtype": "String"
+        },
+        {
+          "fieldname": "gender",
+          "colname": "gender",
+          "coltype": "CHAR",
+          "fieldtype": "String"
+        },
+        {
+          "fieldname": "phone",
+          "colname": "phone",
+          "coltype": "VARCHAR",
+          "fieldtype": "String"
+        },
+        {
+          "fieldname": "email",
+          "colname": "email",
+          "coltype": "VARCHAR",
+          "fieldtype": "String"
+        },
+        {
+          "fieldname": "roleId",
+          "colname": "role_id",
+          "coltype": "INTEGER",
+          "fieldtype": "Integer"
+        },
+        {
+          "fieldname": "createTime",
+          "colname": "create_time",
+          "coltype": "DATETIME",
+          "fieldtype": "Date"
+        },
+        {
+          "fieldname": "updateTime",
+          "colname": "update_time",
+          "coltype": "DATETIME",
+          "fieldtype": "Date"
+        }
+      ]
+    },
+    {
+      "classname": "Score",
+      "tablename": "score",
+      "columns": [
+        {
+          "fieldname": "scoreId",
+          "colname": "score_id",
+          "coltype": "INTEGER",
+          "fieldtype": "Integer"
+        },
+        {
+          "fieldname": "userId",
+          "colname": "user_id",
+          "coltype": "VARCHAR",
+          "fieldtype": "String"
+        },
+        {
+          "fieldname": "courseName",
+          "colname": "course_name",
+          "coltype": "VARCHAR",
+          "fieldtype": "String"
+        },
+        {
+          "fieldname": "scoreValue",
+          "colname": "score_value",
+          "coltype": "DECIMAL",
+          "fieldtype": "BigDecimal"
+        },
+        {
+          "fieldname": "examType",
+          "colname": "exam_type",
+          "coltype": "VARCHAR",
+          "fieldtype": "String"
+        },
+        {
+          "fieldname": "createUser",
+          "colname": "create_user",
+          "coltype": "VARCHAR",
+          "fieldtype": "String"
+        },
+        {
+          "fieldname": "createTime",
+          "colname": "create_time",
+          "coltype": "DATETIME",
+          "fieldtype": "Date"
+        },
+        {
+          "fieldname": "updateTime",
+          "colname": "update_time",
+          "coltype": "DATETIME",
+          "fieldtype": "Date"
+        }
+      ]
+    }
+  ]
+}

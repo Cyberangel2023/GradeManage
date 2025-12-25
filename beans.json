@@ -1,0 +1,22 @@
+{
+  "beans": [
+    {
+      "classname": "com.example.grademanage.DAO.UserDAO",
+      "bean": "userDAO"
+    },
+    {
+      "classname": "com.example.grademanage.Service.UserService",
+      "bean": "userService",
+      "dao": "userDAO"
+    },
+    {
+      "classname": "com.example.grademanage.DAO.ScoreDAO",
+      "bean": "scoreDAO"
+    },
+    {
+      "classname": "com.example.grademanage.Service.ScoreService",
+      "bean": "scoreService",
+      "dao": "scoreDAO"
+    }
+  ]
+}
