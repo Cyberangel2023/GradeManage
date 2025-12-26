@@ -1,16 +1,144 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.grademanage.Controller">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.grademanage.Controller.ViewController">
+   <children>
+      <BorderPane layoutX="281.0" layoutY="260.0" prefHeight="720.0" prefWidth="1080.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <HBox prefHeight="10.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="logoutBtn" mnemonicParsing="false" prefHeight="0.0" prefWidth="134.0" text="退出登录">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="realname" prefHeight="40.0" prefWidth="911.0" text="  Label">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </top>
+         <left>
+            <VBox prefHeight="625.0" prefWidth="129.0" spacing="25.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="addBtn" mnemonicParsing="false" prefHeight="42.0" prefWidth="145.0" text="添加成绩">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="deleteBtn" mnemonicParsing="false" prefHeight="42.0" prefWidth="145.0" text="删除成绩">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="queryBtn" mnemonicParsing="false" prefHeight="42.0" prefWidth="145.0" text="查询成绩">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="updateBtn" mnemonicParsing="false" prefHeight="42.0" prefWidth="145.0" text="修改成绩">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="viewBtn" mnemonicParsing="false" prefHeight="42.0" prefWidth="145.0" text="查看成绩">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets top="50.0" />
+               </padding>
+            </VBox>
+         </left>
+         <center>
+            <TableView fx:id="scoreTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <columns>
+                  <TableColumn fx:id="id1" minWidth="0.0" prefWidth="28.799956917762756" />
+                <TableColumn fx:id="id" prefWidth="163.20005226135254" text="学号" />
+                <TableColumn fx:id="name" prefWidth="100.0" text="姓名" />
+                  <TableColumn fx:id="course" prefWidth="189.86669921875" text="课程" />
+                  <TableColumn fx:id="score" minWidth="0.0" prefWidth="81.06668090820312" text="成绩" />
+                  <TableColumn fx:id="type" prefWidth="64.26666259765625" text="类型" />
+                  <TableColumn fx:id="teacher" prefWidth="100.0" text="老师" />
+                  <TableColumn fx:id="time" prefWidth="121.60001220703123" text="时间" />
+              </columns>
+            </TableView>
+         </center>
+         <bottom>
+            <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label prefHeight="46.0" prefWidth="107.0" text=" 按学号搜索">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="idSearchInput" prefHeight="29.0" prefWidth="223.0" />
+                  <Label prefHeight="46.0" prefWidth="135.0" text="      按名字搜索">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="nameSearchInput" prefHeight="29.0" prefWidth="223.0" />
+                  <Label prefHeight="46.0" prefWidth="136.0" text="      按课程搜索">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="courseSearchInput" prefHeight="29.0" prefWidth="223.0" />
+               </children>
+            </HBox>
+         </bottom>
+         <right>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label prefHeight="35.0" prefWidth="112.0" text=" 排序方式">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="sortType" prefHeight="35.0" prefWidth="112.0" text="    学号">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="idSort" mnemonicParsing="false" prefHeight="43.0" prefWidth="152.0" text="按学号排序">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="nameSort" mnemonicParsing="false" prefHeight="43.0" prefWidth="152.0" text="按姓名排序">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="scoreSort" mnemonicParsing="false" prefHeight="43.0" prefWidth="152.0" text="按成绩排序">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="orderSort" mnemonicParsing="false" prefHeight="43.0" prefWidth="152.0" text="升  序">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </right>
+      </BorderPane>
+   </children>
+</AnchorPane>

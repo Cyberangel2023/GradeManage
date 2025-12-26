@@ -1,25 +1,38 @@
-package com.example.grademanage;
+package com.example.grademanage.Factory.Impl;
 
+import com.example.grademanage.Factory.BeanFactory;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BeanFactory {
-    private static BeanFactory instance;
+public class BeanFactoryImpl implements BeanFactory {
+    private static BeanFactoryImpl instance;
     private final Map<String, Object> beans = new HashMap<>();
 
-    private BeanFactory() {
+    public static BeanFactoryImpl getInstance() {
+        if (instance == null) {
+            instance = new BeanFactoryImpl();
+        }
+        return instance;
+    }
+
+    private BeanFactoryImpl() {
         try {
             Gson gson = new Gson();
             Type rootType = new TypeToken<Map<String, List<Map<String, String>>>>() {}.getType();
-            Map<String, List<Map<String, String>>> rootMap = gson.fromJson(new FileReader("beans.json"), rootType);
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("json/beans.json");
+            Reader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+            Map<String, List<Map<String, String>>> rootMap = gson.fromJson(reader, rootType);
             List<Map<String, String>> beanConfigs = rootMap.get("beans");
 
             for (Map<String, String> config : beanConfigs) {
@@ -99,37 +112,8 @@ public class BeanFactory {
         return null;
     }
 
-    public static BeanFactory getInstance() {
-        if (instance == null) {
-            instance = new BeanFactory();
-        }
-        return instance;
-    }
-
     @SuppressWarnings("unchecked")
     public <T> T getBean(String name) {
         return (T) beans.get(name);
-    }
-
-    // 数据校验方法
-    public static boolean valiDateID(Integer ID) {
-        if (ID <= 0) {
-            System.out.println("错误：ID必须是大于0的整数");
-            return false;
-        }
-        return true;
-    }
-
-    public static boolean valiDateName(String name){
-        if (name == null || name.length() > 20) {
-            System.out.println("错误：名字长度必须≤20个字符");
-            return false;
-        }
-        String nameRegex = "^[a-zA-Z_][a-zA-Z0-9_]*$";
-        if (!name.matches(nameRegex)) {
-            System.out.println("错误：名字只能由字母、数字、下划线组成，且首字符不能是数字");
-            return false;
-        }
-        return true;
     }
 }

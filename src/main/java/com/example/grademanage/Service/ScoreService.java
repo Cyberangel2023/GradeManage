@@ -1,6 +1,6 @@
 package com.example.grademanage.Service;
 
-import com.example.grademanage.BeanFactory;
+import com.example.grademanage.Factory.Impl.BeanFactoryImpl;
 import com.example.grademanage.DAO.ScoreDAO;
 import com.example.grademanage.Entity.Score;
 import lombok.Getter;
@@ -22,8 +22,8 @@ public class ScoreService {
     private static final UserService userService;
 
     static {
-        BeanFactory beanFactory = BeanFactory.getInstance();
-        userService = beanFactory.getBean("userService");
+        BeanFactoryImpl beanFactoryImpl = BeanFactoryImpl.getInstance();
+        userService = beanFactoryImpl.getBean("userService");
     }
     /**
      * 新增成绩

@@ -4,10 +4,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -27,23 +27,31 @@ public class ORMUtil {
 
     // 静态初始化：解析orm.json + 预加载表元数据
     static {
+        Reader configReader = null;
         try {
-            // 1. 读取orm.json（兼容项目根目录和resources目录）
-            String projectRoot = new File("").getAbsolutePath();
-            File configFile = new File(projectRoot, "orm.json");
+            // 第一步：优先从classpath读取（打包成JAR后唯一可行的方式）
+            InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("json/orm.json");
+            if (is != null) {
+                configReader = new InputStreamReader(is, StandardCharsets.UTF_8);
+            } else {
+                // 第二步：开发环境，降级到文件路径读取
+                String projectRoot = new File("").getAbsolutePath();
+                File configFile = new File(projectRoot, "json/orm.json"); // 项目根目录/json/orm.json
 
-            // 兼容resources目录查找
-            if (!configFile.exists()) {
-                configFile = new File(projectRoot + "/src/main/resources", "orm.json");
+                // 兼容resources/json/目录
                 if (!configFile.exists()) {
-                    throw new RuntimeException("未找到orm.json配置文件，已尝试路径：\n1. "
-                            + new File(projectRoot, "orm.json").getAbsolutePath() + "\n2. "
-                            + configFile.getAbsolutePath());
+                    configFile = new File(projectRoot + "/src/main/resources/json", "orm.json");
+                    if (!configFile.exists()) {
+                        throw new FileNotFoundException("未找到orm.json配置文件，已尝试路径：\n1. classpath:json/orm.json\n2. "
+                                + new File(projectRoot, "json/orm.json").getAbsolutePath() + "\n3. "
+                                + configFile.getAbsolutePath());
+                    }
                 }
+                configReader = new FileReader(configFile, StandardCharsets.UTF_8);
             }
 
             // 2. 解析数据库连接配置
-            JsonObject rootJson = JsonParser.parseReader(new FileReader(configFile)).getAsJsonObject();
+            JsonObject rootJson = JsonParser.parseReader(configReader).getAsJsonObject();
             // 校验核心配置项
             if (!rootJson.has("url") || !rootJson.has("username") || !rootJson.has("password")) {
                 throw new RuntimeException("orm.json缺少必要的数据库配置：url/username/password");
