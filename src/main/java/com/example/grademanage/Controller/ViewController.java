@@ -1,18 +1,23 @@
 package com.example.grademanage.Controller;
 
 import com.example.grademanage.Entity.Score;
+import com.example.grademanage.Util.Util;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Comparator;
 import java.util.ResourceBundle;
@@ -243,7 +248,7 @@ public class ViewController implements Initializable {
      * 处理添加成绩按钮事件
      */
     private void handleAdd() {
-        showAlert(Alert.AlertType.INFORMATION, "提示", "即将打开添加成绩界面！");
+        Util.showAlert(Alert.AlertType.INFORMATION, "提示", "即将打开添加成绩界面！");
         // 实际项目中：对接数据库，新增成绩数据到scoreList
     }
 
@@ -254,7 +259,7 @@ public class ViewController implements Initializable {
         // 获取选中的行
         Score selectedScore = scoreTable.getSelectionModel().getSelectedItem();
         if (selectedScore == null) {
-            showAlert(Alert.AlertType.WARNING, "提示", "请先选中要删除的成绩行！");
+            Util.showAlert(Alert.AlertType.WARNING, "提示", "请先选中要删除的成绩行！");
             return;
         }
 
@@ -267,7 +272,7 @@ public class ViewController implements Initializable {
             if (result == ButtonType.OK) {
                 // 从列表中移除选中数据（后续需对接数据库删除）
                 scoreList.remove(selectedScore);
-                showAlert(Alert.AlertType.INFORMATION, "成功", "成绩删除成功！");
+                Util.showAlert(Alert.AlertType.INFORMATION, "成功", "成绩删除成功！");
             }
         });
     }
@@ -280,7 +285,7 @@ public class ViewController implements Initializable {
         FilteredList<Score> filteredData = new FilteredList<>(scoreList, p -> true);
         filterData(filteredData);
         scoreTable.setItems(filteredData);
-        showAlert(Alert.AlertType.INFORMATION, "查询结果", "共查询到 " + scoreTable.getItems().size() + " 条成绩数据！");
+        Util.showAlert(Alert.AlertType.INFORMATION, "查询结果", "共查询到 " + scoreTable.getItems().size() + " 条成绩数据！");
     }
 
     /**
@@ -290,11 +295,11 @@ public class ViewController implements Initializable {
         // 获取选中的行
         Score selectedScore = scoreTable.getSelectionModel().getSelectedItem();
         if (selectedScore == null) {
-            showAlert(Alert.AlertType.WARNING, "提示", "请先选中要修改的成绩行！");
+            Util.showAlert(Alert.AlertType.WARNING, "提示", "请先选中要修改的成绩行！");
             return;
         }
 
-        showAlert(Alert.AlertType.INFORMATION, "提示", "即将打开修改成绩界面！\n当前选中：" +
+        Util.showAlert(Alert.AlertType.INFORMATION, "提示", "即将打开修改成绩界面！\n当前选中：" +
                 selectedScore.getUserName() + " - " + selectedScore.getCourseName() + "（原成绩：" + selectedScore.getScoreValue() + "）");
         // 实际项目中：对接数据库，更新选中的成绩数据
     }
@@ -306,7 +311,7 @@ public class ViewController implements Initializable {
         // 获取选中的行
         Score selectedScore = scoreTable.getSelectionModel().getSelectedItem();
         if (selectedScore == null) {
-            showAlert(Alert.AlertType.WARNING, "提示", "请先选中要查看的成绩行！");
+            Util.showAlert(Alert.AlertType.WARNING, "提示", "请先选中要查看的成绩行！");
             return;
         }
 
@@ -320,7 +325,7 @@ public class ViewController implements Initializable {
                 "授课老师：" + selectedScore.getCreateUser() + "\n" +
                 "时间：" + selectedScore.getUpdateTime();
 
-        showAlert(Alert.AlertType.INFORMATION, "成绩详情", detail);
+        Util.showAlert(Alert.AlertType.INFORMATION, "成绩详情", detail);
     }
 
     /**
@@ -334,25 +339,43 @@ public class ViewController implements Initializable {
         confirmAlert.setContentText("确定要退出登录吗？");
         confirmAlert.showAndWait().ifPresent(result -> {
             if (result == ButtonType.OK) {
-                // 关闭当前主界面窗口
-                Stage currentStage = (Stage) logoutBtn.getScene().getWindow();
-                currentStage.close();
-
-                // 实际项目中：打开登录界面
-                showAlert(Alert.AlertType.INFORMATION, "退出成功", "已成功退出登录！");
+                // 切换至登录界面
+                switchToLogin();
             }
         });
     }
 
-    /**
-     * 通用弹窗提示方法（Java 23兼容）
-     */
-    private void showAlert(Alert.AlertType alertType, String title, String content) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
+    private void switchToLogin() {
+        try {
+            // 获取当前Stage
+            Stage currentStage = (Stage) logoutBtn.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(
+                    LoginController.class.getResource("/fxml/login.fxml") // 替换成你要跳转的register.fxml
+            );
+
+            // 打包后路径校验：如果找不到FXML文件，主动提示
+            if (loader.getLocation() == null) {
+                Util.showAlert(Alert.AlertType.ERROR, "路径错误", "打包后未找到/fxml/login.fxml文件，请检查resources目录结构！");
+                return;
+            }
+            Parent newRoot = loader.load();
+
+            // 替换Scene根节点
+            if (currentStage.getScene() == null) {
+                // 打包后若Scene为空，新建Scene
+                currentStage.setScene(new Scene(newRoot, 360, 500));
+            } else {
+                currentStage.getScene().setRoot(newRoot);
+                currentStage.setWidth(360);
+                currentStage.setHeight(500);
+                currentStage.centerOnScreen();
+            }
+            // 设置窗口标题
+            currentStage.setTitle("登录");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Util.showAlert(Alert.AlertType.WARNING, "跳转失败", "登录页面加载出错，请重试！");
+        }
     }
 
     // 对外提供设置登录用户姓名的方法

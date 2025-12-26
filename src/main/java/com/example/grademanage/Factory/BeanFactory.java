@@ -12,5 +12,4 @@ public interface BeanFactory {
      * @param <T>  Bean的类型泛型
      * @return 对应的Bean实例，如果不存在则返回null
      */
-    <T> T getBean(String name);
-}
+    <T> T getBean(String name);}

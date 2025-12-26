@@ -29,12 +29,12 @@ public class ORMUtil {
     static {
         Reader configReader = null;
         try {
-            // 第一步：优先从classpath读取（打包成JAR后唯一可行的方式）
+            // 优先从classpath读取
             InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("json/orm.json");
             if (is != null) {
                 configReader = new InputStreamReader(is, StandardCharsets.UTF_8);
             } else {
-                // 第二步：开发环境，降级到文件路径读取
+                // 开发环境，降级到文件路径读取
                 String projectRoot = new File("").getAbsolutePath();
                 File configFile = new File(projectRoot, "json/orm.json"); // 项目根目录/json/orm.json
 

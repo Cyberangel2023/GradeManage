@@ -4,9 +4,7 @@ import com.example.grademanage.Factory.BeanFactory;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
@@ -31,7 +29,26 @@ public class BeanFactoryImpl implements BeanFactory {
             Gson gson = new Gson();
             Type rootType = new TypeToken<Map<String, List<Map<String, String>>>>() {}.getType();
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream("json/beans.json");
-            Reader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+            Reader reader = null;
+            if (inputStream != null) {
+                reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+            } else {
+                // 开发环境，降级到文件路径读取
+                String projectRoot = new File("").getAbsolutePath();
+                File configFile = new File(projectRoot, "json/beans.json"); // 项目根目录/json/orm.json
+
+                // 兼容resources/json/目录
+                if (!configFile.exists()) {
+                    configFile = new File(projectRoot + "/src/main/resources/json", "beans.json");
+                    if (!configFile.exists()) {
+                        throw new FileNotFoundException("beans.json配置文件，已尝试路径：\n1. classpath:json/beans.json\n2. "
+                                + new File(projectRoot, "json/beans.json").getAbsolutePath() + "\n3. "
+                                + configFile.getAbsolutePath());
+                    }
+                }
+                reader = new FileReader(configFile, StandardCharsets.UTF_8);
+            }
+
             Map<String, List<Map<String, String>>> rootMap = gson.fromJson(reader, rootType);
             List<Map<String, String>> beanConfigs = rootMap.get("beans");
 

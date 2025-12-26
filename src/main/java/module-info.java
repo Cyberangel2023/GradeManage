@@ -5,6 +5,7 @@ module com.example.grademanage {
     requires java.sql;
     requires static lombok;
     requires java.desktop;
+    requires javafx.graphics;
 
     opens com.example.grademanage to javafx.fxml;
     exports com.example.grademanage;

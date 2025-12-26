@@ -1,5 +1,10 @@
 package com.example.grademanage.Controller;
 
+import com.example.grademanage.Entity.User;
+import com.example.grademanage.Factory.BeanFactory;
+import com.example.grademanage.Factory.Impl.BeanFactoryImpl;
+import com.example.grademanage.Service.UserService;
+import com.example.grademanage.Util.Util;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,7 +27,6 @@ import java.util.ResourceBundle;
  * 负责处理登录界面的用户交互逻辑
  */
 public class LoginController implements Initializable {
-    // 绑定FXML文件中对应的控件
     @FXML
     private ImageView background; // 背景图片控件
     @FXML
@@ -36,6 +40,8 @@ public class LoginController implements Initializable {
     @FXML
     private Button helpBtn; // 帮助按钮
 
+    private static UserService userService;
+
     /**
      * 初始化方法
      */
@@ -47,6 +53,9 @@ public class LoginController implements Initializable {
         loginBtn.setOnAction(e -> handleLogin());
         registerBtn.setOnAction(e -> handleRegister());
         helpBtn.setOnAction(e -> handleHelp());
+
+        BeanFactory beanFactory = BeanFactoryImpl.getInstance();
+        userService = beanFactory.getBean("userService");
     }
 
     /**
@@ -54,24 +63,25 @@ public class LoginController implements Initializable {
      */
     private void handleLogin() {
         // 获取输入的用户名和密码
-        String username = usernameInput.getText().trim();
+        String userId = usernameInput.getText().trim();
         String password = passwordInput.getText().trim();
 
-        // 简单的输入验证
-        if (username.isEmpty() || password.isEmpty()) {
-            showAlert(AlertType.ERROR, "登录失败", "用户名和密码不能为空，请填写完整！");
+        // 输入验证
+        if (userId.isEmpty() || password.isEmpty()) {
+            Util.showAlert(AlertType.ERROR, "登录失败", "用户名和密码不能为空！");
             return;
         }
-
-        // 这里是登录逻辑的占位符
-        // 实际项目中需要替换为真实的验证逻辑（比如连接数据库、调用接口等）
-        if (username.equals("user") && password.equals("123456")) {
-            // 登录成功后跳转到主界面
-            switchToView();
+        User user = userService.getUserById(userId);
+        if (user == null) {
+            Util.showAlert(AlertType.ERROR, "登录失败", "用户名不存在！");
             clearInputFields(); // 清空输入框
+            return;
+        }
+        if (user.getPassword().equals(password)) {
+            clearInputFields(); // 清空输入框
+            switchToView(); // 登录成功后跳转到主界面
         } else {
-            showAlert(AlertType.ERROR, "登录失败", "用户名或密码错误，请重试！");
-            passwordInput.clear(); // 只清空密码框
+            Util.showAlert(AlertType.ERROR, "登录失败", "密码错误！");
         }
     }
 
@@ -88,7 +98,7 @@ public class LoginController implements Initializable {
 
             // 打包后路径校验：如果找不到FXML文件，主动提示
             if (loader.getLocation() == null) {
-                showAlert(AlertType.ERROR, "路径错误", "打包后未找到/fxml/register.fxml文件，请检查resources目录结构！");
+                Util.showAlert(AlertType.ERROR, "路径错误", "打包后未找到/fxml/register.fxml文件，请检查resources目录结构！");
                 return;
             }
             Parent newRoot = loader.load();
@@ -104,7 +114,7 @@ public class LoginController implements Initializable {
             currentStage.setTitle("用户注册");
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert(AlertType.WARNING, "跳转失败", "注册页面加载出错，请重试！");
+            Util.showAlert(AlertType.WARNING, "跳转失败", "注册页面加载出错，请重试！");
         }
     }
 
@@ -118,7 +128,7 @@ public class LoginController implements Initializable {
 
             // 打包后路径校验：如果找不到FXML文件，主动提示
             if (loader.getLocation() == null) {
-                showAlert(AlertType.ERROR, "路径错误", "打包后未找到/fxml/view.fxml文件，请检查resources目录结构！");
+                Util.showAlert(AlertType.ERROR, "路径错误", "打包后未找到/fxml/view.fxml文件，请检查resources目录结构！");
                 return;
             }
             Parent newRoot = loader.load();
@@ -137,7 +147,7 @@ public class LoginController implements Initializable {
             currentStage.setTitle("成绩管理系统");
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert(AlertType.WARNING, "跳转失败", "成绩管理系统页面加载出错，请重试！");
+            Util.showAlert(AlertType.WARNING, "跳转失败", "成绩管理系统页面加载出错，请重试！");
         }
     }
 
@@ -145,26 +155,12 @@ public class LoginController implements Initializable {
      * 处理帮助按钮点击事件
      */
     private void handleHelp() {
-        showAlert(AlertType.INFORMATION, "帮助信息",
+        Util.showAlert(AlertType.INFORMATION, "帮助信息",
                 """
                         1. 用户名：输入您的学号或工号
                         2. 密码：输入您的登录密码
                         3. 如忘记密码，请联系管理员
                         """);
-    }
-
-    /**
-     * 通用的弹窗提示方法
-     * @param alertType 弹窗类型（信息、错误、警告等）
-     * @param title 弹窗标题
-     * @param content 弹窗内容
-     */
-    private void showAlert(AlertType alertType, String title, String content) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null); // 隐藏头部文本
-        alert.setContentText(content);
-        alert.showAndWait(); // 等待用户关闭弹窗
     }
 
     /**

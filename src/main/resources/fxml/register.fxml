@@ -12,61 +12,85 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
-            prefWidth="360.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.grademanage.Controller.RegisterController">
-    <ImageView fx:id="background" fitHeight="500.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="true"/>
-    <GridPane layoutY="240.0" prefHeight="126.0" prefWidth="344.0">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.grademanage.Controller.RegisterController">
+    <ImageView fx:id="background" fitHeight="500.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="true" />
+    <GridPane layoutX="8.0" layoutY="53.0" prefHeight="333.0" prefWidth="344.0">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="175.20001220703125" minWidth="10.0"
-                               prefWidth="117.5999755859375"/>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="261.5999755859375" minWidth="10.0"
-                               prefWidth="242.4000244140625"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="175.20001220703125" minWidth="10.0" prefWidth="117.5999755859375" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="261.5999755859375" minWidth="10.0" prefWidth="242.4000244140625" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints maxHeight="46.00001220703125" minHeight="10.0" prefHeight="41.599951171875"
-                            vgrow="SOMETIMES"/>
-            <RowConstraints maxHeight="57.79998779296875" minHeight="10.0" prefHeight="47.20003662109375"
-                            vgrow="SOMETIMES"/>
-            <RowConstraints maxHeight="51.200048828125006" minHeight="10.0" prefHeight="39.19996337890625"
-                            vgrow="SOMETIMES"/>
+         <RowConstraints maxHeight="46.00001220703125" minHeight="10.0" prefHeight="41.599951171875" vgrow="SOMETIMES" />
+         <RowConstraints maxHeight="46.00001220703125" minHeight="10.0" prefHeight="41.599951171875" vgrow="SOMETIMES" />
+         <RowConstraints maxHeight="46.00001220703125" minHeight="10.0" prefHeight="41.599951171875" vgrow="SOMETIMES" />
+         <RowConstraints maxHeight="46.00001220703125" minHeight="10.0" prefHeight="41.599951171875" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="46.00001220703125" minHeight="10.0" prefHeight="41.599951171875" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="57.79998779296875" minHeight="10.0" prefHeight="47.20003662109375" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="51.200048828125006" minHeight="10.0" prefHeight="39.19996337890625" vgrow="SOMETIMES" />
+         <RowConstraints maxHeight="51.200048828125006" minHeight="10.0" prefHeight="39.19996337890625" vgrow="SOMETIMES" />
         </rowConstraints>
-        <Label prefHeight="31.0" prefWidth="110.0" text="     用户名">
+        <Label prefHeight="31.0" prefWidth="110.0" text="     用户名" GridPane.rowIndex="4">
             <font>
-                <Font size="20.0"/>
+                <Font size="20.0" />
             </font>
         </Label>
-        <Label prefHeight="33.0" prefWidth="112.0" text="        密码" GridPane.rowIndex="1">
+        <Label prefHeight="33.0" prefWidth="112.0" text="        密码" GridPane.rowIndex="5">
             <font>
-                <Font size="20.0"/>
+                <Font size="20.0" />
             </font>
         </Label>
-        <Label prefHeight="31.0" prefWidth="110.0" text="  确认密码" GridPane.rowIndex="2">
+        <Label prefHeight="31.0" prefWidth="110.0" text="  确认密码" GridPane.rowIndex="6">
             <font>
-                <Font size="20.0"/>
+                <Font size="20.0" />
             </font>
         </Label>
-        <TextField fx:id="usernameInput" promptText="（学号/工号）" GridPane.columnIndex="1"/>
-        <PasswordField fx:id="passwordInput" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-        <PasswordField fx:id="confirmPasswordInput" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <TextField fx:id="usernameInput" promptText="必填（学号/工号）" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <PasswordField fx:id="passwordInput" promptText="必填" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <PasswordField fx:id="confirmPasswordInput" promptText="必填" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+       <ChoiceBox fx:id="roleChoose" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <Label prefHeight="31.0" prefWidth="110.0" text="        姓名">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label prefHeight="31.0" prefWidth="110.0" text="     手机号" GridPane.rowIndex="2">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label prefHeight="31.0" prefWidth="110.0" text="        邮箱" GridPane.rowIndex="3">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="phoneInput" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <TextField fx:id="nameInput" promptText="必填" GridPane.columnIndex="1" />
+      <TextField fx:id="emailInput" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Label prefHeight="31.0" prefWidth="110.0" text="         身份" GridPane.rowIndex="7">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="genderChoose" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Label prefHeight="31.0" prefWidth="110.0" text="        性别" GridPane.rowIndex="1">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
     </GridPane>
-    <Button fx:id="registerBtn" layoutX="121.0" layoutY="415.0" mnemonicParsing="false" prefHeight="40.0"
-            prefWidth="117.0" text="注  册">
+    <Button fx:id="registerBtn" layoutX="121.0" layoutY="415.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="117.0" text="注  册">
         <font>
-          <Font size="20.0"/>
+          <Font size="20.0" />
         </font>
     </Button>
-    <Button fx:id="helpBtn" layoutX="118.0" layoutY="466.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="124.0"
-            text="帮       助">
+    <Button fx:id="helpBtn" layoutX="118.0" layoutY="466.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="124.0" text="帮       助">
         <font>
-          <Font size="13.0"/>
+          <Font size="13.0" />
         </font>
     </Button>
-    <Button fx:id="backBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="81.0"
-            text="返    回">
+    <Button fx:id="backBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="81.0" text="返    回">
         <font>
-          <Font size="13.0"/>
+          <Font size="13.0" />
         </font>
     </Button>
-    <ChoiceBox fx:id="roleChoose" layoutX="105.0" layoutY="376.0" prefWidth="150.0"/>
 </AnchorPane>
