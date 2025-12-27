@@ -18,23 +18,15 @@ public interface PermissionFactory {
     List<String> getPermissionCodesByRoleId(Integer roleId);
 
     /**
-     * 校验角色是否拥有指定权限编码
-     * @param roleId 角色ID
-     * @param permissionCode 权限编码
-     * @return true=有权限，false=无权限
-     */
-    boolean checkPermission(Integer roleId, String permissionCode);
-
-    /**
-     * 查询角色的所有权限关联关系
-     * @param roleId 角色ID
-     * @return 角色-权限关联列表
-     */
-    List<RolePermission> getRolePermissions(Integer roleId);
-
-    /**
      * 查询所有权限信息
      * @return 权限列表
      */
     List<Permission> getAllPermissions();
+
+    /**
+     * 权限校验
+     * @return 权限是否拥有
+     */
+    // 新增权限校验方法
+    boolean checkPermission(Integer roleId, String targetPermission);
 }

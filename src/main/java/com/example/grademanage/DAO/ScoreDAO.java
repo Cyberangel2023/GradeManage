@@ -21,9 +21,10 @@ public class ScoreDAO {
             pstmt.executeUpdate();
             System.out.println("成绩数据保存成功，执行SQL：" + ORMUtil.createSaveSQL(score));
         } catch (Exception e) {
-            String userId = score.getUserId() == null ? "未设置" : score.getUserId().toString();
-            String course = score.getCourseName() == null ? "未知课程" : score.getCourseName();
-            throw new RuntimeException("保存成绩失败，用户ID：" + userId + "，课程：" + course, e);
+            e.printStackTrace();
+//            String userId = score.getUserId() == null ? "未设置" : score.getUserId();
+//            String course = score.getCourseName() == null ? "未知课程" : score.getCourseName();
+//            throw new RuntimeException("保存成绩失败，用户ID：" + userId + "，课程：" + course, e);
         }
     }
 
@@ -175,6 +176,7 @@ public class ScoreDAO {
         Score score = new Score();
         score.setScoreId(rs.getInt("score_id"));
         score.setUserId(rs.getString("user_id"));
+        score.setUserName(rs.getString("user_name"));
         score.setCourseName(rs.getString("course_name"));
         score.setScoreValue(rs.getBigDecimal("score_value"));
         score.setExamType(rs.getString("exam_type"));

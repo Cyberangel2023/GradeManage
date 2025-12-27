@@ -158,6 +158,12 @@
           "fieldtype": "String"
         },
         {
+          "fieldname": "userName",
+          "colname": "user_name",
+          "coltype": "VARCHAR",
+          "fieldtype": "String"
+        },
+        {
           "fieldname": "courseName",
           "colname": "course_name",
           "coltype": "VARCHAR",

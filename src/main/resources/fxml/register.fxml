@@ -29,17 +29,17 @@
             <RowConstraints maxHeight="51.200048828125006" minHeight="10.0" prefHeight="39.19996337890625" vgrow="SOMETIMES" />
          <RowConstraints maxHeight="51.200048828125006" minHeight="10.0" prefHeight="39.19996337890625" vgrow="SOMETIMES" />
         </rowConstraints>
-        <Label prefHeight="31.0" prefWidth="110.0" text="     用户名" GridPane.rowIndex="4">
+        <Label prefHeight="31.0" prefWidth="110.0" text="     用户名 *" GridPane.rowIndex="4">
             <font>
                 <Font size="20.0" />
             </font>
         </Label>
-        <Label prefHeight="33.0" prefWidth="112.0" text="        密码" GridPane.rowIndex="5">
+        <Label prefHeight="33.0" prefWidth="112.0" text="        密码 *" GridPane.rowIndex="5">
             <font>
                 <Font size="20.0" />
             </font>
         </Label>
-        <Label prefHeight="31.0" prefWidth="110.0" text="  确认密码" GridPane.rowIndex="6">
+        <Label prefHeight="31.0" prefWidth="110.0" text="  确认密码 *" GridPane.rowIndex="6">
             <font>
                 <Font size="20.0" />
             </font>
@@ -48,7 +48,7 @@
         <PasswordField fx:id="passwordInput" promptText="必填" GridPane.columnIndex="1" GridPane.rowIndex="5" />
         <PasswordField fx:id="confirmPasswordInput" promptText="必填" GridPane.columnIndex="1" GridPane.rowIndex="6" />
        <ChoiceBox fx:id="roleChoose" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-      <Label prefHeight="31.0" prefWidth="110.0" text="        姓名">
+      <Label prefHeight="31.0" prefWidth="110.0" text="        姓名 *">
          <font>
             <Font size="20.0" />
          </font>

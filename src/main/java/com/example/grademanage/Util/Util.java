@@ -1,8 +1,16 @@
 package com.example.grademanage.Util;
 
+import com.example.grademanage.Entity.User;
 import javafx.scene.control.Alert;
+import lombok.Getter;
+import lombok.Setter;
 
 public class Util {
+    // 当前登录人员信息
+    @Getter
+    @Setter
+    private static User user;
+
     /**
      * 通用的弹窗提示方法
      * @param alertType 弹窗类型（信息、错误、警告等）

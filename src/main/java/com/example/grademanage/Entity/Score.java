@@ -10,10 +10,10 @@ import java.util.Date;
 @Getter
 @Setter
 public class Score {
-    @TableId
+    @TableId(isAutoIncrement = true)
     private Integer scoreId; // 成绩ID
     private String userId; // 学生ID
-    private String userName; //学生姓名
+    private String userName; // 学生姓名
     private String courseName; // 课程名称
     private BigDecimal scoreValue; // 成绩
     private String examType; // 考试类型

@@ -30,10 +30,10 @@ public class ScoreService {
      * @param score 成绩对象（必填：userId/courseName/scoreValue/examType）
      */
     public void addScore(Score score) {
-        // 1. 业务参数校验
+        // 业务参数校验
         validateScoreParam(score, true);
 
-        // 2. 业务逻辑：校验用户是否存在（userId改为String）
+        // 业务逻辑：校验用户是否存在（userId改为String）
         try {
             System.out.println(score.getUserId());
             userService.getUserById(score.getUserId());
@@ -41,12 +41,12 @@ public class ScoreService {
             throw new RuntimeException("新增成绩失败：关联的用户ID[" + score.getUserId() + "]不存在", e);
         }
 
-        // 3. 业务逻辑：校验分数范围（0-100）
+        // 业务逻辑：校验分数范围（0-100）
         if (score.getScoreValue().compareTo(BigDecimal.ZERO) < 0 || score.getScoreValue().compareTo(new BigDecimal("100")) > 0) {
             throw new RuntimeException("新增成绩失败：分数[" + score.getScoreValue() + "]超出0-100范围");
         }
 
-        // 4. 调用DAO层保存
+        // 调用DAO层保存
         dao.save(score);
         System.out.println("成绩新增成功：用户ID[" + score.getUserId() + "]，课程[" + score.getCourseName() + "]");
     }

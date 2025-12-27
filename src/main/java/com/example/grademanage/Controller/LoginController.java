@@ -10,7 +10,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -41,6 +40,8 @@ public class LoginController implements Initializable {
     private Button helpBtn; // 帮助按钮
 
     private static UserService userService;
+
+    private String role;
 
     /**
      * 初始化方法
@@ -79,6 +80,7 @@ public class LoginController implements Initializable {
         }
         if (user.getPassword().equals(password)) {
             clearInputFields(); // 清空输入框
+            Util.setUser(user);
             switchToView(); // 登录成功后跳转到主界面
         } else {
             Util.showAlert(AlertType.ERROR, "登录失败", "密码错误！");

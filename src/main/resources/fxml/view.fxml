@@ -32,34 +32,7 @@
             </HBox>
          </top>
          <left>
-            <VBox prefHeight="625.0" prefWidth="129.0" spacing="25.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Button fx:id="addBtn" mnemonicParsing="false" prefHeight="42.0" prefWidth="145.0" text="添加成绩">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="deleteBtn" mnemonicParsing="false" prefHeight="42.0" prefWidth="145.0" text="删除成绩">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="queryBtn" mnemonicParsing="false" prefHeight="42.0" prefWidth="145.0" text="查询成绩">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="updateBtn" mnemonicParsing="false" prefHeight="42.0" prefWidth="145.0" text="修改成绩">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="viewBtn" mnemonicParsing="false" prefHeight="42.0" prefWidth="145.0" text="查看成绩">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Button>
-               </children>
+            <VBox fx:id="functionBtnBox" prefHeight="625.0" prefWidth="129.0" spacing="25.0" BorderPane.alignment="CENTER">
                <padding>
                   <Insets top="50.0" />
                </padding>
@@ -68,7 +41,7 @@
          <center>
             <TableView fx:id="scoreTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <columns>
-                  <TableColumn fx:id="id1" minWidth="0.0" prefWidth="28.799956917762756" />
+                  <TableColumn fx:id="check" minWidth="0.0" prefWidth="28.799956917762756" />
                 <TableColumn fx:id="id" prefWidth="163.20005226135254" text="学号" />
                 <TableColumn fx:id="name" prefWidth="100.0" text="姓名" />
                   <TableColumn fx:id="course" prefWidth="189.86669921875" text="课程" />
