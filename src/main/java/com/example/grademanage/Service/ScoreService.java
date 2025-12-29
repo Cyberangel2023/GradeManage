@@ -3,6 +3,7 @@ package com.example.grademanage.Service;
 import com.example.grademanage.Factory.Impl.BeanFactoryImpl;
 import com.example.grademanage.DAO.ScoreDAO;
 import com.example.grademanage.Entity.Score;
+import com.example.grademanage.Util.ValiDateUtil;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,9 +30,9 @@ public class ScoreService {
      * 新增成绩
      * @param score 成绩对象（必填：userId/courseName/scoreValue/examType）
      */
-    public void addScore(Score score) {
+    public void saveScore(Score score) {
         // 业务参数校验
-        validateScoreParam(score, true);
+        ValiDateUtil.validateScoreParam(score, true);
 
         // 业务逻辑：校验用户是否存在（userId改为String）
         try {
@@ -76,7 +77,7 @@ public class ScoreService {
      */
     public void updateScore(Score score) {
         // 参数校验
-        validateScoreParam(score, false);
+        ValiDateUtil.validateScoreParam(score, false);
 
         // 校验成绩是否存在
         Score existScore = dao.findById(score.getScoreId());
@@ -161,36 +162,5 @@ public class ScoreService {
             System.out.println("查询提示：暂无成绩数据");
         }
         return scoreList;
-    }
-
-    /**
-     * 私有工具方法：成绩参数校验
-     * @param score 成绩对象
-     * @param isAdd 是否为新增操作
-     */
-    private void validateScoreParam(Score score, boolean isAdd) {
-        if (score == null) {
-            throw new IllegalArgumentException("成绩对象不能为null");
-        }
-        if (isAdd) {
-            // 新增必填项：userId改为String非空校验
-            if (score.getUserId() == null || score.getUserId().trim().isEmpty()) {
-                throw new IllegalArgumentException("新增成绩失败：用户ID不能为空");
-            }
-            if (score.getCourseName() == null || score.getCourseName().trim().isEmpty()) {
-                throw new IllegalArgumentException("新增成绩失败：课程名不能为空");
-            }
-            if (score.getScoreValue() == null) {
-                throw new IllegalArgumentException("新增成绩失败：分数不能为空");
-            }
-            if (score.getExamType() == null || score.getExamType().trim().isEmpty()) {
-                throw new IllegalArgumentException("新增成绩失败：考试类型不能为空");
-            }
-        } else {
-            // 更新必填项：scoreId仍为Integer
-            if (score.getScoreId() == null || score.getScoreId() <= 0) {
-                throw new IllegalArgumentException("更新成绩失败：成绩ID必须为正整数");
-            }
-        }
     }
 }

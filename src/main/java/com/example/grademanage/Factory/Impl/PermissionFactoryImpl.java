@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 权限工厂实现类（保留原数据，适配组合模式）
+ * 权限工厂实现类
  */
 public class PermissionFactoryImpl implements PermissionFactory {
     private static PermissionFactoryImpl instance;

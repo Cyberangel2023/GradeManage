@@ -20,7 +20,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -484,7 +483,7 @@ public class ViewController implements Initializable {
 
             // 保存数据
             scoreList.add(newScore);
-            scoreService.addScore(newScore);
+            scoreService.saveScore(newScore);
             initScoreList();
 
             Util.showAlert(Alert.AlertType.INFORMATION, "成功", "成绩新增成功！");
