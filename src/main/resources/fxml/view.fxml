@@ -104,6 +104,11 @@
                         <Font size="15.0" />
                      </font>
                   </Button>
+                  <Button fx:id="courseSort" mnemonicParsing="false" prefHeight="43.0" prefWidth="152.0" text="按课程排序">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
                   <Button fx:id="orderSort" mnemonicParsing="false" prefHeight="43.0" prefWidth="152.0" text="升  序">
                      <font>
                         <Font size="25.0" />

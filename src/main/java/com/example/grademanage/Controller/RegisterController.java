@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -58,6 +59,25 @@ public class RegisterController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Image backgroundImage = null;
+        // 优先从 classpath 读取（兼容打包）
+        URL imageUrl = getClass().getResource("/img/background.jpg");
+        if (imageUrl != null) {
+            backgroundImage = new Image(imageUrl.toExternalForm());
+        } else {
+            // 降级读取（避免NPE）
+            backgroundImage = new Image("img/background.jpg", true);
+        }
+
+        // 空值兜底：如果图片仍加载失败，不抛异常，仅提示
+        if (backgroundImage.isError()) {
+            System.err.println("警告：背景图片加载失败（路径：img/background.jpg），请检查资源文件是否存在！");
+        } else {
+            // 假设你有一个背景ImageView控件（如名为backgroundImg）
+            background.setImage(backgroundImage);
+            background.setOpacity(0.5);
+        }
+
         // 初始化控件样式
         usernameInput.setStyle("-fx-font-size: 16px; -fx-padding: 5px;");
         passwordInput.setStyle("-fx-font-size: 16px; -fx-padding: 5px;");

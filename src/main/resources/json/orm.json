@@ -1,5 +1,5 @@
 {
-  "url": "jdbc:mysql://localhost:3306/grade_manage?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai",
+  "url": "jdbc:mysql://localhost:3306/grade_manage?useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC",
   "username": "root",
   "password": "Weichuju07",
   "tables": [
